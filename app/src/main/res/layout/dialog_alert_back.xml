@@ -2,12 +2,15 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/teal_200"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Alert"
+        android:background="#f00"
+        android:textColor="@color/white"
         android:textSize="30sp"
         android:layout_gravity="center"/>
 
@@ -41,6 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="35dp"
+            android:layout_marginLeft="20dp"
             android:text="Save"/>
         <Button
             android:id="@+id/btn_dont_alert"

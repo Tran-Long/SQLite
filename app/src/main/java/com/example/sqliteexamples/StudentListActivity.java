@@ -5,7 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -18,6 +20,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import io.bloco.faker.Faker;
 
@@ -136,19 +139,33 @@ public class StudentListActivity extends AppCompatActivity {
         }else if (id == R.id.action_select){
 
         }else if (id == R.id.action_delete){
-            String mssv = cs.getString(cs.getColumnIndex("mssv"));
-            db.beginTransaction();
-            try{
-                int r = db.delete("sinhvien", "mssv = '" +mssv+ "'", null);
-                Log.v("TAG", "delete row " + r);
-                db.setTransactionSuccessful();
-            }catch(Exception exception){
-                exception.printStackTrace();
-            }finally{
-                db.endTransaction();
-                adapter.resetView();
-                adapter.notifyDataSetChanged();
-            }
+            AlertDialog dialog = new AlertDialog.Builder(StudentListActivity.this)
+                    .setMessage("Are you sure to remove this student ?")
+                    .setTitle("Remove student")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String mssv = cs.getString(cs.getColumnIndex("mssv"));
+                            db.beginTransaction();
+                            try{
+                                int r = db.delete("sinhvien", "mssv = '" +mssv+ "'", null);
+                                if(r > 0){
+                                    Toast.makeText(StudentListActivity.this, "Successfully removed", Toast.LENGTH_SHORT).show();
+                                }
+                                db.setTransactionSuccessful();
+                            }catch(Exception exception){
+                                exception.printStackTrace();
+                            }finally{
+                                db.endTransaction();
+                                adapter.resetView();
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .create();
+            dialog.setCanceledOnTouchOutside(true);
+            dialog.show();
         }
         return super.onContextItemSelected(item);
     }
