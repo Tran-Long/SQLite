@@ -23,10 +23,10 @@ public class StudentInfoActivity extends Activity {
         TextView txtAddress = findViewById(R.id.txt_address);
 
         txtMSSV.setText(bundle.getString("mssv"));
-        txtHoten.setText(bundle.getString("name"));
-        txtDob.setText(bundle.getString("dob"));
+        txtHoten.setText(bundle.getString("ten"));
+        txtDob.setText(bundle.getString("ngaysinh"));
         txtEmail.setText(bundle.getString("email"));
-        txtAddress.setText(bundle.getString("address"));
+        txtAddress.setText(bundle.getString("diachi"));
 
         findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
             @Override

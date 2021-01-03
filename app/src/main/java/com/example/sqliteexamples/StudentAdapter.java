@@ -11,9 +11,18 @@ import android.widget.TextView;
 public class StudentAdapter extends BaseAdapter {
 
     Cursor cs;
-
+    SQLiteDatabase db;
     public StudentAdapter(SQLiteDatabase db) {
+        this.db = db;
         cs = db.rawQuery("select * from sinhvien", null);
+    }
+
+    public void resetView(){
+        this.cs = db.rawQuery("select * from sinhvien", null);
+    }
+
+    public void setCursor(Cursor cs){
+        this.cs = cs;
     }
 
     @Override
@@ -30,7 +39,7 @@ public class StudentAdapter extends BaseAdapter {
     @Override
     public long getItemId(int i) {
         return i;
-    }
+    };
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
